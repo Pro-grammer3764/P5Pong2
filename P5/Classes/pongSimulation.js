@@ -4,6 +4,7 @@ class PongSimulation {
     this.margin = this.bound.width / 100
     this.paddleWidth = this.bound.width / 50
     this.paddleHeight = this.bound.height / 5
+    this.score = [0, 0]
 
     this.left = new PongPaddle(
       new Bound(
@@ -32,6 +33,17 @@ class PongSimulation {
     this.left.show()
     this.right.show()
     this.ball.show()
+
+    //show scores
+    push()
+    textAlign(CENTER, CENTER)
+    strokeWeight(1)
+    stroke(256)
+    fill(256)
+    text(this.score[0], this.bound.x + this.bound.width * 0.25, this.bound.y + this.bound.height / 8)
+    text(this.score[1], this.bound.x + this.bound.width * 0.75, this.bound.y + this.bound.height / 8)
+    pop()
+
   }
 
   update() {
@@ -70,13 +82,15 @@ class PongSimulation {
     //wall collision
     if (this.ball.pos.x + this.ball.radius > this.bound.x + this.bound.width) {
       //reset
-      this.ball.vel.reflect(new p5.Vector(1, 0))
-      this.ball.pos.x = this.bound.x + this.bound.width - this.ball.radius
+      // this.ball.vel.reflect(new p5.Vector(1, 0))
+      // this.ball.pos.x = this.bound.x + this.bound.width - this.ball.radius
+      this.score[0]++;
       this.resetBall()
     } else if (this.ball.pos.x - this.ball.radius < this.bound.x) {
       //reset
-      this.ball.vel.reflect(new p5.Vector(1, 0))
-      this.ball.pos.x = this.bound.x + this.ball.radius
+      // this.ball.vel.reflect(new p5.Vector(1, 0))
+      // this.ball.pos.x = this.bound.x + this.ball.radius
+      this.score[1]++;
       this.resetBall()
     } else if (this.ball.pos.y + this.ball.radius > this.bound.y + this.bound.height) {
       this.ball.vel.reflect(new p5.Vector(0, 1))
@@ -112,5 +126,7 @@ class PongSimulation {
     this.ball.pos.x = this.bound.x + this.bound.width / 2
     this.ball.pos.y = this.bound.y + this.bound.height / 2
     this.ball.randomVel()
+    this.left.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
+    this.right.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
   }
 }
