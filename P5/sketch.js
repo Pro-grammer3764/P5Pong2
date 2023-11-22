@@ -11,18 +11,19 @@ function draw() {
   background(0, 100)
 
   if (keyIsDown(87)) {
-    pongSimulation.left.velocity = -paddleSpeed
+    pongSimulation.leftUP()
   }
   if (keyIsDown(83)) {
-    pongSimulation.left.velocity = paddleSpeed
+    pongSimulation.leftDOWN()
   }
   if (keyIsDown(UP_ARROW)) {
-    pongSimulation.right.velocity = -paddleSpeed
+    pongSimulation.rightUP()
   }
   if (keyIsDown(DOWN_ARROW)) {
-    pongSimulation.right.velocity = paddleSpeed
+    pongSimulation.rightDOWN()
   }
 
   pongSimulation.update()
   pongSimulation.show()
+  // print(pongSimulation.returnState())
 }

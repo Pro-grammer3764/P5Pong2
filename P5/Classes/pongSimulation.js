@@ -37,9 +37,10 @@ class PongSimulation {
     //show scores
     push()
     textAlign(CENTER, CENTER)
-    strokeWeight(1)
+    strokeWeight(0.1)
+    textSize(this.bound.width / 15)
     stroke(256)
-    fill(256)
+
     text(this.score[0], this.bound.x + this.bound.width * 0.25, this.bound.y + this.bound.height / 8)
     text(this.score[1], this.bound.x + this.bound.width * 0.75, this.bound.y + this.bound.height / 8)
     pop()
@@ -47,18 +48,13 @@ class PongSimulation {
   }
 
   update() {
-    //handle ball update and physics
-    //handle paddle positions
-
     this.updatePaddlePositions()
     this.updateBallPosition()
   }
 
   updatePaddlePositions() {
     // left paddle
-    let friction = 0.6;
-
-    this.left.velocity *= friction;
+    this.left.velocity *= this.left.friction;
     this.left.bound.y += this.left.velocity;
 
     if (this.left.bound.y + this.left.bound.height > this.bound.y + this.bound.height) {
@@ -68,7 +64,7 @@ class PongSimulation {
     }
 
     // right paddle
-    this.right.velocity *= friction;
+    this.right.velocity *= this.right.friction;
     this.right.bound.y += this.right.velocity;
 
     if (this.right.bound.y + this.right.bound.height > this.bound.y + this.bound.height) {
@@ -83,22 +79,16 @@ class PongSimulation {
 
     //wall collision
     if (this.ball.pos.x + this.ball.radius > this.bound.x + this.bound.width) {
-      //reset
-      // this.ball.vel.reflect(new p5.Vector(1, 0))
-      // this.ball.pos.x = this.bound.x + this.bound.width - this.ball.radius
-      this.score[0]++;
+      this.score[0]++
       this.resetBall()
     } else if (this.ball.pos.x - this.ball.radius < this.bound.x) {
-      //reset
-      // this.ball.vel.reflect(new p5.Vector(1, 0))
-      // this.ball.pos.x = this.bound.x + this.ball.radius
-      this.score[1]++;
+      this.score[1]++
       this.resetBall()
     } else if (this.ball.pos.y + this.ball.radius > this.bound.y + this.bound.height) {
-      this.ball.vel.reflect(new p5.Vector(0, 1))
+      this.reflectHotizontal()
       this.ball.pos.y = this.bound.y + this.bound.height - this.ball.radius
     } else if (this.ball.pos.y - this.ball.radius < this.bound.y) {
-      this.ball.vel.reflect(new p5.Vector(0, 1))
+      this.reflectHotizontal()
       this.ball.pos.y = this.bound.y + this.ball.radius
     }
 
@@ -109,9 +99,7 @@ class PongSimulation {
         this.ball.pos.y < this.left.bound.y + this.left.bound.height &&
         this.ball.pos.x - this.ball.radius < this.left.bound.x + this.left.bound.width) {
 
-        this.ball.vel.reflect(new p5.Vector(1, 0))
-        this.ball.vel.x *= random(0.5, 2)
-        this.ball.vel.setMag(this.ball.speed)
+        this.reflectVertical()
         this.ball.pos.x = this.left.bound.x + this.left.bound.width + this.ball.radius
       }
     } else {
@@ -120,12 +108,29 @@ class PongSimulation {
         this.ball.pos.y < this.right.bound.y + this.right.bound.height &&
         this.ball.pos.x + this.ball.radius > this.right.bound.x) {
 
-        this.ball.vel.reflect(new p5.Vector(1, 0))
-        this.ball.vel.x *= random(0.5, 2)
-        this.ball.vel.setMag(this.ball.speed)
+        this.reflectVertical()
         this.ball.pos.x = this.right.bound.x - this.ball.radius
       }
     }
+
+    if (abs(this.ball.vel.y / this.ball.vel.x) > 2) {
+      this.ball.vel.x *= random(1.1, 2)
+      this.ball.vel.setMag(this.ball.speed)
+    }
+  }
+
+  returnState() {
+    let state = [];
+
+    //1. ball X
+    //2. ball Y
+    //3. ball VX
+    //4. ball VY
+    //5. left position
+
+    state[0] = map(this.ball.pos.x, this.bound.x + this.ball.radius, this.bound.x + this.bound.width - this.ball.radius, 0, 1);
+
+    return state;
   }
 
   resetBall() {
@@ -134,5 +139,29 @@ class PongSimulation {
     this.ball.randomVel()
     this.left.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
     this.right.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
+  }
+
+  reflectHotizontal() {
+    this.ball.vel.reflect(new p5.Vector(0, 1))
+  }
+
+  reflectVertical() {
+    this.ball.vel.reflect(new p5.Vector(1, 0))
+  }
+
+  leftUP() {
+    this.left.velocity = this.left.paddleSpeed * -1
+  }
+
+  leftDOWN() {
+    this.left.velocity = this.left.paddleSpeed
+  }
+
+  rightUP() {
+    this.right.velocity = this.right.paddleSpeed * -1
+  }
+
+  rightDOWN() {
+    this.right.velocity = this.right.paddleSpeed
   }
 }

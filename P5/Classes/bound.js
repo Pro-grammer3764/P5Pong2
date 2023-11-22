@@ -11,6 +11,6 @@ class Bound {
     noFill()
     stroke(this.color)
     strokeWeight(1)
-    rect(this.x, this.y, this.width, this.height)
+    rect(this.x, this.y, this.width, this.height, 2)
   }
 }

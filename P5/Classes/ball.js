@@ -16,7 +16,7 @@ class Ball {
     noFill()
     ellipse(0, 0, this.radius * 2)
     rotate(this.vel.heading())
-    line(0, 0, 20, 0)
+    line(0, 0, this.radius + 5, 0)
     pop()
   }
 
