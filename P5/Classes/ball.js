@@ -9,10 +9,15 @@ class Ball {
   }
 
   show() {
+    push()
+    translate(this.pos.x, this.pos.y)
     stroke(this.color)
     strokeWeight(1)
     noFill()
-    ellipse(this.pos.x, this.pos.y, this.radius * 2)
+    ellipse(0, 0, this.radius * 2)
+    rotate(this.vel.heading())
+    line(0, 0, 20, 0)
+    pop()
   }
 
   randomVel() {

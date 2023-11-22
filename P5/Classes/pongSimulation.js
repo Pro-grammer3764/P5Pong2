@@ -56,7 +56,9 @@ class PongSimulation {
 
   updatePaddlePositions() {
     // left paddle
-    this.left.velocity *= 0.9;
+    let friction = 0.6;
+
+    this.left.velocity *= friction;
     this.left.bound.y += this.left.velocity;
 
     if (this.left.bound.y + this.left.bound.height > this.bound.y + this.bound.height) {
@@ -66,7 +68,7 @@ class PongSimulation {
     }
 
     // right paddle
-    this.right.velocity *= 0.9;
+    this.right.velocity *= friction;
     this.right.bound.y += this.right.velocity;
 
     if (this.right.bound.y + this.right.bound.height > this.bound.y + this.bound.height) {
@@ -108,6 +110,8 @@ class PongSimulation {
         this.ball.pos.x - this.ball.radius < this.left.bound.x + this.left.bound.width) {
 
         this.ball.vel.reflect(new p5.Vector(1, 0))
+        this.ball.vel.x *= random(0.5, 2)
+        this.ball.vel.setMag(this.ball.speed)
         this.ball.pos.x = this.left.bound.x + this.left.bound.width + this.ball.radius
       }
     } else {
@@ -117,6 +121,8 @@ class PongSimulation {
         this.ball.pos.x + this.ball.radius > this.right.bound.x) {
 
         this.ball.vel.reflect(new p5.Vector(1, 0))
+        this.ball.vel.x *= random(0.5, 2)
+        this.ball.vel.setMag(this.ball.speed)
         this.ball.pos.x = this.right.bound.x - this.ball.radius
       }
     }
