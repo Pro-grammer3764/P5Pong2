@@ -1,6 +1,6 @@
 /// <reference path="P5Resources/p5.d.ts" />
 
-let pongSimulation = new PongSimulation(new Bound(10, 10, 380, 380))
+let pongSimulation = new PongSimulation(new Bound(0, 0, 400, 400))
 let paddleSpeed = 10;
 
 function setup() {
@@ -25,5 +25,4 @@ function draw() {
 
   pongSimulation.update()
   pongSimulation.show()
-  // print(pongSimulation.returnState())
 }

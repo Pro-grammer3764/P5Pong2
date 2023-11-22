@@ -6,6 +6,7 @@ class Ball {
     this.randomVel()
     this.color = 256
     this.radius = 5
+    this.debug = false
   }
 
   show() {
@@ -15,8 +16,11 @@ class Ball {
     strokeWeight(1)
     noFill()
     ellipse(0, 0, this.radius * 2)
-    rotate(this.vel.heading())
-    line(0, 0, this.radius + 5, 0)
+    if (this.debug) {
+      rotate(this.vel.heading())
+      stroke(this.color, 50)
+      line(0, 0, this.radius + 5, 0)
+    }
     pop()
   }
 

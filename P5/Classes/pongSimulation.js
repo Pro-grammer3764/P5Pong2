@@ -5,27 +5,10 @@ class PongSimulation {
     this.paddleWidth = this.bound.width / 50
     this.paddleHeight = this.bound.height / 5
     this.score = [0, 0]
-
-    this.left = new PongPaddle(
-      new Bound(
-        this.bound.x + this.margin,
-        this.bound.y + this.bound.height / 2 - this.paddleHeight / 2,
-        this.paddleWidth,
-        this.paddleHeight
-      )
-    )
-
-    this.right = new PongPaddle(
-      new Bound(
-        this.bound.x + this.bound.width - (this.margin + this.paddleWidth),
-        this.bound.y + this.bound.height / 2 - this.paddleHeight / 2,
-        this.paddleWidth,
-        this.paddleHeight
-      )
-    )
-
-    this.ball = new Ball(
-      new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector)
+    this.left = new PongPaddle(new Bound(this.bound.x + this.margin, this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
+    this.right = new PongPaddle(new Bound(this.bound.x + this.bound.width - (this.margin + this.paddleWidth), this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
+    this.ball = new Ball(new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector)
+    this.state = []
   }
 
   show() {
@@ -45,11 +28,18 @@ class PongSimulation {
     text(this.score[1], this.bound.x + this.bound.width * 0.75, this.bound.y + this.bound.height / 8)
     pop()
 
+    //center line
+    push()
+    stroke(256, 50)
+    translate(this.bound.x + this.bound.width / 2, this.bound.y)
+    line(0, 0, 0, this.bound.height)
+    pop()
   }
 
   update() {
     this.updatePaddlePositions()
     this.updateBallPosition()
+    this.setState()
   }
 
   updatePaddlePositions() {
@@ -119,18 +109,13 @@ class PongSimulation {
     }
   }
 
-  returnState() {
-    let state = [];
-
-    //1. ball X
-    //2. ball Y
-    //3. ball VX
-    //4. ball VY
-    //5. left position
-
-    state[0] = map(this.ball.pos.x, this.bound.x + this.ball.radius, this.bound.x + this.bound.width - this.ball.radius, 0, 1);
-
-    return state;
+  setState() {
+    this.state[0] = map(this.ball.pos.x, this.bound.x + this.ball.radius, this.bound.x + this.bound.width - this.ball.radius, 0, 1)
+    this.state[1] = map(this.ball.pos.y, this.bound.y + this.ball.radius, this.bound.y + this.bound.height - this.ball.radius, 0, 1)
+    let normalizedVel = this.ball.vel.copy();
+    this.state[2] = normalizedVel.normalize().x
+    this.state[3] = normalizedVel.normalize().y
+    this.state[4] = map(this.left.bound.y, this.bound.y, this.bound.y + this.bound.height - this.paddleHeight, 0, 1)
   }
 
   resetBall() {
