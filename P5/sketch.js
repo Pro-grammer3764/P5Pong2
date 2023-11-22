@@ -8,8 +8,14 @@ function setup() {
 }
 
 function draw() {
-  background(0, 100)
+  background(0, 50)
+  keyInput();
 
+  pongSimulation.update()
+  pongSimulation.show()
+}
+
+function keyInput() {
   if (keyIsDown(87)) {
     pongSimulation.leftUP()
   }
@@ -22,7 +28,4 @@ function draw() {
   if (keyIsDown(DOWN_ARROW)) {
     pongSimulation.rightDOWN()
   }
-
-  pongSimulation.update()
-  pongSimulation.show()
 }

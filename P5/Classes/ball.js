@@ -2,9 +2,9 @@ class Ball {
   constructor(pos, vel) {
     this.pos = pos
     this.vel = vel
-    this.speed = 5
+    this.speed = 3
     this.randomVel()
-    this.color = 256
+    this.color = [255, 255, 255]
     this.radius = 5
     this.debug = false
   }
@@ -13,8 +13,8 @@ class Ball {
     push()
     translate(this.pos.x, this.pos.y)
     stroke(this.color)
+    fill(this.color)
     strokeWeight(1)
-    noFill()
     ellipse(0, 0, this.radius * 2)
     if (this.debug) {
       rotate(this.vel.heading())

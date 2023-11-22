@@ -12,9 +12,9 @@ class PongSimulation {
   }
 
   show() {
-    this.bound.show()
-    this.left.show()
-    this.right.show()
+    this.bound.show(false) //nofill
+    this.left.show(true) //fill
+    this.right.show(true) //fill
     this.ball.show()
 
     //show scores
@@ -22,7 +22,8 @@ class PongSimulation {
     textAlign(CENTER, CENTER)
     strokeWeight(0.1)
     textSize(this.bound.width / 15)
-    stroke(256)
+    stroke(255)
+    fill(255)
 
     text(this.score[0], this.bound.x + this.bound.width * 0.25, this.bound.y + this.bound.height / 8)
     text(this.score[1], this.bound.x + this.bound.width * 0.75, this.bound.y + this.bound.height / 8)

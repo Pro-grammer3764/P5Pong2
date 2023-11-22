@@ -4,13 +4,15 @@ class Bound {
     this.y = y
     this.width = width
     this.height = height
-    this.color = 256
+    this.color = [255, 255, 255]
   }
 
-  show() {
-    noFill()
+  show(isFilled) {
+    push()
+    if (!isFilled) { noFill() } else { fill(this.color) }
     stroke(this.color)
     strokeWeight(1)
     rect(this.x, this.y, this.width, this.height, 2)
+    pop()
   }
 }
