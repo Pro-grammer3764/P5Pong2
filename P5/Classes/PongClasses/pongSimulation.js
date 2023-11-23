@@ -74,7 +74,7 @@ class PongSimulation {
       this.resetBall()
     } else if (this.ball.pos.x - this.ball.radius < this.bound.x) {
       this.score[1]++
-      this.resetBall()
+      this.resetBall().then()
     } else if (this.ball.pos.y + this.ball.radius > this.bound.y + this.bound.height) {
       this.reflectHotizontal()
       this.ball.pos.y = this.bound.y + this.bound.height - this.ball.radius
