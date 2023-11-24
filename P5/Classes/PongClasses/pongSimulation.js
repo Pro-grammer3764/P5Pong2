@@ -1,5 +1,6 @@
 class PongSimulation {
   constructor(bound) {
+    //pong game
     this.bound = bound
     this.margin = this.bound.width / 100
     this.paddleWidth = this.bound.width / 50
@@ -8,7 +9,15 @@ class PongSimulation {
     this.left = new PongPaddle(new Bound(this.bound.x + this.margin, this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
     this.right = new PongPaddle(new Bound(this.bound.x + this.bound.width - (this.margin + this.paddleWidth), this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
     this.ball = new Ball(new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector)
+
+    //AI
     this.state = [0, 0, 0, 0, 0]
+    this.AI = new NeuralNetwork([5, 3, 2, 0], new Bound(
+      this.bound.x + (this.bound.width / 6),
+      this.bound.y + (this.bound.height / 2),
+      (this.bound.width / 3) * 2,
+      (this.bound.height / 8) * 3
+    ))
   }
 
   show() {
@@ -20,9 +29,7 @@ class PongSimulation {
     //show scores
     push()
     textAlign(CENTER, CENTER)
-    strokeWeight(0.1)
     textSize(this.bound.width / 15)
-    stroke(255)
     fill(255)
 
     text(this.score[0], this.bound.x + this.bound.width * 0.25, this.bound.y + this.bound.height / 8)
@@ -33,7 +40,13 @@ class PongSimulation {
     push()
     stroke(256, 50)
     translate(this.bound.x + this.bound.width / 2, this.bound.y)
-    line(0, 0, 0, this.bound.height)
+    line(0, 0, 0, this.bound.height / 2)
+    line(0, (this.bound.height / 8) * 7, 0, this.bound.height)
+    pop()
+
+    //Neural Network
+    push()
+    this.AI.drawnNetwork()
     pop()
   }
 
@@ -41,6 +54,7 @@ class PongSimulation {
     this.updatePaddlePositions()
     this.updateBallPosition()
     this.setState()
+    this.AI.setInputs(this.state)
   }
 
   updatePaddlePositions() {
@@ -74,7 +88,7 @@ class PongSimulation {
       this.resetBall()
     } else if (this.ball.pos.x - this.ball.radius < this.bound.x) {
       this.score[1]++
-      this.resetBall().then()
+      this.resetBall()
     } else if (this.ball.pos.y + this.ball.radius > this.bound.y + this.bound.height) {
       this.reflectHotizontal()
       this.ball.pos.y = this.bound.y + this.bound.height - this.ball.radius
@@ -105,8 +119,7 @@ class PongSimulation {
     }
 
     if (abs(this.ball.vel.y / this.ball.vel.x) > 2) {
-      this.ball.vel.x *= random(1.1, 2)
-      this.ball.vel.setMag(this.ball.speed)
+      this.ball.vel.x *= 2
     }
   }
 
@@ -132,7 +145,7 @@ class PongSimulation {
   }
 
   reflectVertical() {
-    this.ball.vel.reflect(new p5.Vector(1, 0))
+    this.ball.vel.reflect(new p5.Vector(1, random(-0.2, 0.2))) //randomly offset ~ ±20°
   }
 
   leftUP() {
