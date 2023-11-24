@@ -82,6 +82,19 @@ class NeuralNetwork {
         pop()
     }
 
+    forwardPropogate() {
+        for (let x = 1; x < this.layers.length; x++) {
+            for (let y = 0; y < this.layers[x].length; y++) {
+                let sum = 0
+                for (let n = 0; n < this.layers[x - 1].length; n++) {
+                    sum += this.layers[x - 1][n].value * this.layers[x - 1][n].weights[y]
+                }
+                sum += this.layers[x][y].bais
+                this.layers[x][y].value = this.sigmoid(sum)
+            }
+        }
+    }
+
     randomizeWeights() {
         this.layers.forEach(x => {
             x.forEach(y => {

@@ -12,7 +12,7 @@ class PongSimulation {
 
     //AI
     this.state = [0, 0, 0, 0, 0]
-    this.AI = new NeuralNetwork([5, 3, 2, 0], new Bound(
+    this.AI = new NeuralNetwork([5, 3, 1, 0], new Bound(
       this.bound.x + (this.bound.width / 6),
       this.bound.y + (this.bound.height / 2),
       (this.bound.width / 3) * 2,
@@ -55,6 +55,7 @@ class PongSimulation {
     this.updateBallPosition()
     this.setState()
     this.AI.setInputs(this.state)
+    this.AI.forwardPropogate()
   }
 
   updatePaddlePositions() {
