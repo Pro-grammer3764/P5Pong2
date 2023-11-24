@@ -1,11 +1,11 @@
 class Ball {
-  constructor(pos, vel) {
+  constructor(pos, vel, radius) {
     this.pos = pos
     this.vel = vel
-    this.speed = 3
     this.randomVel()
+    this.radius = radius
+    this.speed = radius / 2
     this.color = [255, 255, 255]
-    this.radius = 5
     this.debug = false
   }
 

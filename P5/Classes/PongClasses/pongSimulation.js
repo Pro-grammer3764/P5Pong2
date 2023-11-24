@@ -8,16 +8,13 @@ class PongSimulation {
     this.score = [0, 0]
     this.left = new PongPaddle(new Bound(this.bound.x + this.margin, this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
     this.right = new PongPaddle(new Bound(this.bound.x + this.bound.width - (this.margin + this.paddleWidth), this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
-    this.ball = new Ball(new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector)
+    this.ball = new Ball(new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector, this.bound.width / 80)
 
     //AI
     this.state = [0, 0, 0, 0, 0]
-    this.AI = new NeuralNetwork([5, 3, 1, 0], new Bound(
-      this.bound.x + (this.bound.width / 6),
-      this.bound.y + (this.bound.height / 2),
-      (this.bound.width / 3) * 2,
-      (this.bound.height / 8) * 3
-    ))
+    this.AI = new NeuralNetwork([5, 3, 1, 0], new Bound(this.bound.x + (this.bound.width / 6), this.bound.y + (this.bound.height / 2), (this.bound.width / 3) * 2, (this.bound.height / 8) * 3))
+    this.fitness = 0
+    this.outputSensitivity = 0.1
   }
 
   show() {
@@ -34,6 +31,9 @@ class PongSimulation {
 
     text(this.score[0], this.bound.x + this.bound.width * 0.25, this.bound.y + this.bound.height / 8)
     text(this.score[1], this.bound.x + this.bound.width * 0.75, this.bound.y + this.bound.height / 8)
+    textSize(this.bound.width / 40)
+    fill(256, 50)
+    text(nf(this.fitness, 1, 3), this.bound.x + this.bound.width / 2, this.bound.y + (this.bound.height / 16) * 13.5)
     pop()
 
     //center line
@@ -51,25 +51,25 @@ class PongSimulation {
   }
 
   update() {
+    this.rightBOT()
     this.updatePaddlePositions()
     this.updateBallPosition()
+    this.updateAI()
+    this.updateFitness()
+  }
+
+  updateFitness() {
+    if (this.ball.pos.y > this.left.bound.y && this.ball.pos.y < this.left.bound.y + this.left.bound.height) {
+      this.fitness += 0.001
+    }
+  }
+
+  updateAI() {
     this.setState()
     this.AI.setInputs(this.state)
     this.AI.forwardPropogate()
-    this.updateAIValue()
-  }
-
-  updateAIValue() {
     let AIValue = this.AI.returnOutput()
-    if (AIValue > 0.6) {
-      //go up
-      this.leftUP()
-    } else if (AIValue < 0.4) {
-      //go down
-      this.leftDOWN()
-    } else {
-      //do nothing
-    }
+    if (AIValue > 0.5 + this.outputSensitivity) { this.leftUP() } else if (AIValue < 0.5 - this.outputSensitivity) { this.leftDOWN() }
   }
 
   updatePaddlePositions() {
@@ -95,6 +95,11 @@ class PongSimulation {
   }
 
   updateBallPosition() {
+    if (abs(this.ball.vel.y / this.ball.vel.x) > 2) {
+      this.ball.vel.x *= 2
+    }
+
+    this.ball.vel.setMag(this.ball.speed)
     this.ball.pos.add(this.ball.vel)
 
     //wall collision
@@ -120,6 +125,7 @@ class PongSimulation {
         this.ball.pos.x - this.ball.radius < this.left.bound.x + this.left.bound.width) {
 
         this.reflectVertical()
+        this.fitness += 5
         this.ball.pos.x = this.left.bound.x + this.left.bound.width + this.ball.radius
       }
     } else {
@@ -131,10 +137,6 @@ class PongSimulation {
         this.reflectVertical()
         this.ball.pos.x = this.right.bound.x - this.ball.radius
       }
-    }
-
-    if (abs(this.ball.vel.y / this.ball.vel.x) > 2) {
-      this.ball.vel.x *= 2
     }
   }
 
@@ -153,6 +155,8 @@ class PongSimulation {
     this.ball.randomVel()
     this.left.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
     this.right.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
+
+    this.fitness -= 5
   }
 
   reflectHotizontal() {
@@ -177,5 +181,9 @@ class PongSimulation {
 
   rightDOWN() {
     this.right.velocity = this.right.paddleSpeed
+  }
+
+  rightBOT() {
+    this.right.bound.y = this.ball.pos.y - (this.paddleHeight / 2)
   }
 }

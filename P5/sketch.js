@@ -1,20 +1,33 @@
 /// <reference path="P5Resources/p5.d.ts" />
 
+let sims = []
 
 function setup() {
-  createCanvas(400, 400)
+  createCanvas(800, 800)
+  const gamesLength = 1; // *actual amount of games is squared
+  const unit = createVector(width / gamesLength, height / gamesLength)
 
-  pongSimulation = new PongSimulation(new Bound(0, 0, 400, 400))
-  pongSimulation.AI.randomizeWeights()
-  pongSimulation.AI.randomizeBias()
+  for (let x = 0; x < gamesLength; x++) {
+    let layer = []
+    for (let y = 0; y < gamesLength; y++) {
+      let b = new Bound(x * unit.x, y * unit.y, unit.x, unit.y)
+      layer.push(new PongSimulation(b))
+      layer[layer.length - 1].AI.randomizeWeights()
+      layer[layer.length - 1].AI.randomizeBias()
+    }
+    sims.push(layer)
+  }
 }
 
 function draw() {
   background(0, 50)
-  // keyInput();
 
-  pongSimulation.update()
-  pongSimulation.show()
+  sims.forEach(x => {
+    x.forEach(y => {
+      y.update()
+      y.show()
+    })
+  })
 }
 
 function keyInput() {

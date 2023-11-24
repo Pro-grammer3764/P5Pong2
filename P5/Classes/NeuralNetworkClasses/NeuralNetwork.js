@@ -46,7 +46,7 @@ class NeuralNetwork {
         this.bound.show()
         push()
         let margin = this.bound.width / 12
-        let radius = 10
+        let radius = this.bound.width / 17
         translate(this.bound.x + margin + radius, this.bound.y)
         let unitX = ((this.bound.width) - (2 * (margin + radius))) / (this.layerSizes.length - 1)
         let Xpos = 0
@@ -90,7 +90,7 @@ class NeuralNetwork {
                     sum += this.layers[x - 1][n].value * this.layers[x - 1][n].weights[y]
                 }
                 sum += this.layers[x][y].bais
-                this.layers[x][y].value = this.sigmoid(sum)
+                this.layers[x][y].value = this.activationFunction(sum)
             }
         }
     }
@@ -117,7 +117,9 @@ class NeuralNetwork {
         })
     }
 
-    sigmoid = (x) => {
-        return 1 / (1 + (pow(Math.E, -x)))
+    activationFunction = (x) => {
+        // return 1 / (1 + (pow(Math.E, -x))) //sigmoid
+
+        return max(0, x) // ReLu
     }
 }
