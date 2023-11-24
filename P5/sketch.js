@@ -11,7 +11,7 @@ function setup() {
 
 function draw() {
   background(0, 50)
-  keyInput();
+  // keyInput();
 
   pongSimulation.update()
   pongSimulation.show()

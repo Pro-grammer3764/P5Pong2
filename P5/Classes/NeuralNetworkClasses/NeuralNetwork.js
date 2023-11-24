@@ -95,6 +95,10 @@ class NeuralNetwork {
         }
     }
 
+    returnOutput() {
+        return this.layers[this.layers.length - 1][0].value
+    }
+
     randomizeWeights() {
         this.layers.forEach(x => {
             x.forEach(y => {

@@ -56,6 +56,20 @@ class PongSimulation {
     this.setState()
     this.AI.setInputs(this.state)
     this.AI.forwardPropogate()
+    this.updateAIValue()
+  }
+
+  updateAIValue() {
+    let AIValue = this.AI.returnOutput()
+    if (AIValue > 0.6) {
+      //go up
+      this.leftUP()
+    } else if (AIValue < 0.4) {
+      //go down
+      this.leftDOWN()
+    } else {
+      //do nothing
+    }
   }
 
   updatePaddlePositions() {
