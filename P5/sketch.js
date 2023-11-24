@@ -5,6 +5,14 @@ let paddleSpeed = 10;
 
 function setup() {
   createCanvas(400, 400)
+
+  let neuralNetwork = new NeuralNetwork([2, 3, 2, 0], new Bound(0, 0, 400, 400))
+  neuralNetwork.setInputs([1, 0.5])
+  neuralNetwork.printNetwork()
+  neuralNetwork.drawnNetwork()
+  // print(neuralNetwork)
+
+  noLoop()
 }
 
 function draw() {
