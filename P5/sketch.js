@@ -1,9 +1,11 @@
 /// <reference path="P5Resources/p5.d.ts" />
 
 let sims = []
-const gamesLength = 2; // *actual amount of games is gamesLength ^ 2
+const gamesLength = 100; // *actual amount of games is gamesLength ^ 2
 
 function setup() {
+  frameRate(120)
+
   createCanvas(800, 800)
   const gamesSize = ceil(pow(gamesLength, 0.5))
   const unit = createVector(width / gamesSize, height / gamesSize)
@@ -20,10 +22,12 @@ function setup() {
 
 function draw() {
   background(0)
+  indexGames()
   sims.forEach(i => {
     i.update()
     i.show()
   }) // update and show
+
   checkCompleted()
 }
 
@@ -34,9 +38,36 @@ function checkCompleted() {
     }
   }
 
-  console.log("cycle completed, next generation")
-  noLoop()
-  return true
+  geneticAlgorithm() // once completed do the genentic algorithm
+}
+
+function geneticAlgorithm() {
+  // for now the genetic algorithm will reset the worst 50% of the poplation and leave the to 50% as "winners"
+  indexGames()
+
+  let topScore = "Best Score: "
+  let bottomScore = "Worst Score: "
+
+  for (let i = 0; i < sims.length; i++) {
+    if (sims[i].scoreIndex > sims.length / 2) {
+      sims[i].AI.randomizeWeights()
+      sims[i].AI.randomizeBias()
+    }
+    if (sims[i].scoreIndex == 0) {
+      topScore += sims[i].fitness
+    }
+    if (sims[i].scoreIndex == sims.length - 1) {
+      bottomScore += sims[i].fitness
+    }
+
+    sims[i].AI.mutate()
+    sims[i].score = [0, 0]
+    sims[i].scoreIndex = 0
+    sims[i].fitness = 0
+    sims[i].completed = false
+  }
+
+  print(topScore + "\n" + bottomScore)
 }
 
 function indexGames() {

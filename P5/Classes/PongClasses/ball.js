@@ -4,7 +4,7 @@ class Ball {
     this.vel = vel
     this.randomVel()
     this.radius = radius
-    this.speed = radius / 2
+    this.speed = radius / 1
     this.color = [255, 255, 255]
     this.debug = false
   }

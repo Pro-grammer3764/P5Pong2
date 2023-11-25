@@ -2,7 +2,7 @@ class PongSimulation {
   constructor(bound, index) {
     //pong game
     this.bound = bound
-    this.margin = this.bound.width / 100
+    this.margin = this.bound.width / 50
     this.paddleWidth = this.bound.width / 50
     this.paddleHeight = this.bound.height / 5
     this.score = [0, 0]
@@ -19,7 +19,7 @@ class PongSimulation {
     this.fitness = 0
     this.scoreIndex = 0
     this.creationIndex = index
-    this.endScore = 10
+    this.endScore = 3
     this.completed = false
   }
 
@@ -40,13 +40,14 @@ class PongSimulation {
 
     //fitness
     textSize(this.bound.width / 40)
-    fill(256, 50)
+    fill(256)
     text(nf(this.fitness, 1, 3), this.bound.x + this.bound.width / 2, this.bound.y + (this.bound.height / 16) * 13.5)
 
+    textSize(this.bound.width / 20)
     //creation index
     text(this.creationIndex + 1, this.bound.x + this.bound.width / 3, this.bound.y + this.bound.height * 0.94)
 
-    //scire index
+    //score index
     text(this.scoreIndex + 1, this.bound.x + (this.bound.width / 3) * 2, this.bound.y + this.bound.height * 0.94)
     pop()
 

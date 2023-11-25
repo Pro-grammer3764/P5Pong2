@@ -63,11 +63,12 @@ class NeuralNetwork {
                     for (let n = 0; n < this.layers[x][y].weights.length; n++) {
                         push()
                         let value = this.layers[x][y].weights[n]
+
                         strokeWeight(value * radius / 10)
                         if (value < 0) {
-                            stroke(abs(value) * 128, 0, 0, 20)
+                            stroke(abs(value) * 255, 0, 0)
                         } else {
-                            stroke(0, abs(value) * 255, 0, 20)
+                            stroke(0, abs(value) * 255, 0)
                         }
 
                         translate(Xpos, Ypos)
@@ -120,6 +121,28 @@ class NeuralNetwork {
         this.layers.forEach(x => {
             x.forEach(y => {
                 y.bais = random(-1, 1)
+            })
+        })
+    }
+
+    mutate() {
+        let mutationRate = 0.1
+
+        this.layers.forEach(x => {
+            for (let y = 0; y < x.length; y++) {
+                if (random() < mutationRate) {
+                    x[y].bais = random(-1, 1)
+                }
+            }
+        })
+
+        this.layers.forEach(x => {
+            x.forEach(y => {
+                for (let n = 0; n < y.weights.length; n++) {
+                    if (random() < mutationRate) {
+                        y.weights[n] = randomGaussian()
+                    }
+                }
             })
         })
     }
