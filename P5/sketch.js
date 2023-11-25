@@ -1,41 +1,40 @@
 /// <reference path="P5Resources/p5.d.ts" />
 
 let sims = []
+const gamesLength = 4; // *actual amount of games is gamesLength ^ 2
 
 function setup() {
   createCanvas(800, 800)
-  const gamesLength = 2; // *actual amount of games is squared
-  const unit = createVector(width / gamesLength, height / gamesLength)
+  const gamesSize = ceil(pow(gamesLength, 0.5))
+  const unit = createVector(width / gamesSize, height / gamesSize)
 
-  for (let x = 0; x < gamesLength; x++) {
-    let layer = []
-    for (let y = 0; y < gamesLength; y++) {
-      let b = new Bound(x * unit.x, y * unit.y, unit.x, unit.y)
-      layer.push(new PongSimulation(b))
-      layer[layer.length - 1].AI.randomizeWeights()
-      layer[layer.length - 1].AI.randomizeBias()
-    }
-    sims.push(layer)
+  for (let i = 0; i < gamesLength; i++) {
+    let x = i % gamesSize
+    let y = floor(i / gamesSize)
+    let b = new Bound(x * unit.x, y * unit.y, unit.x, unit.y)
+    sims.push(new PongSimulation(b, i))
   }
 }
 
 function draw() {
   background(0, 50)
+  sims.forEach(i => { i.update(); i.show() })//update and show
+  keyInput()
+}
 
-  sims.forEach(x => { x.forEach(y => { y.update(); y.show() }) }) //update and show
+function indexGames() {
+  let sorted = sims.toSorted((a, b) => { return b.fitness - a.fitness })
+  for (let i = 0; i < sorted.length; i++) {
+    sorted[i].scoreIndex = i
+  }
+  print(sorted)
 }
 
 function keyInput() {
-  if (keyIsDown(87)) {
-    pongSimulation.leftUP()
-  }
-  if (keyIsDown(83)) {
-    pongSimulation.leftDOWN()
-  }
   if (keyIsDown(UP_ARROW)) {
-    pongSimulation.rightUP()
+    indexGames()
   }
   if (keyIsDown(DOWN_ARROW)) {
-    pongSimulation.rightDOWN()
+    noLoop()
   }
 }

@@ -1,5 +1,5 @@
 class PongSimulation {
-  constructor(bound) {
+  constructor(bound, index) {
     //pong game
     this.bound = bound
     this.margin = this.bound.width / 100
@@ -13,8 +13,13 @@ class PongSimulation {
     //AI
     this.state = [0, 0, 0, 0, 0]
     this.AI = new NeuralNetwork([5, 3, 1, 0], new Bound(this.bound.x + (this.bound.width / 6), this.bound.y + (this.bound.height / 2), (this.bound.width / 3) * 2, (this.bound.height / 8) * 3))
-    this.fitness = 0
     this.outputSensitivity = 0.1
+
+    //Genetic algorithm
+    this.fitness = 0
+    this.scoreIndex = 0
+    this.creationIndex = index
+    this.endScore = 10
   }
 
   show() {
@@ -31,9 +36,17 @@ class PongSimulation {
 
     text(this.score[0], this.bound.x + this.bound.width * 0.25, this.bound.y + this.bound.height / 8)
     text(this.score[1], this.bound.x + this.bound.width * 0.75, this.bound.y + this.bound.height / 8)
+
+    //fitness
     textSize(this.bound.width / 40)
     fill(256, 50)
     text(nf(this.fitness, 1, 3), this.bound.x + this.bound.width / 2, this.bound.y + (this.bound.height / 16) * 13.5)
+
+    //creation index
+    text(this.creationIndex + 1, this.bound.x + this.bound.width / 3, this.bound.y + this.bound.height * 0.94)
+
+    //scire index
+    text(this.scoreIndex + 1, this.bound.x + (this.bound.width / 3) * 2, this.bound.y + this.bound.height * 0.94)
     pop()
 
     //center line
@@ -75,8 +88,8 @@ class PongSimulation {
 
   updatePaddlePositions() {
     // left paddle
-    this.left.velocity *= this.left.friction;
-    this.left.bound.y += this.left.velocity;
+    this.left.velocity *= this.left.friction
+    this.left.bound.y += this.left.velocity
 
     if (this.left.bound.y + this.left.bound.height > this.bound.y + this.bound.height) {
       this.left.bound.y = this.bound.y + this.bound.height - this.left.bound.height
@@ -85,8 +98,8 @@ class PongSimulation {
     }
 
     // right paddle
-    this.right.velocity *= this.right.friction;
-    this.right.bound.y += this.right.velocity;
+    this.right.velocity *= this.right.friction
+    this.right.bound.y += this.right.velocity
 
     if (this.right.bound.y + this.right.bound.height > this.bound.y + this.bound.height) {
       this.right.bound.y = this.bound.y + this.bound.height - this.right.bound.height
@@ -144,7 +157,7 @@ class PongSimulation {
   setState() {
     this.state[0] = map(this.ball.pos.x, this.bound.x + this.ball.radius, this.bound.x + this.bound.width - this.ball.radius, 0, 1)
     this.state[1] = map(this.ball.pos.y, this.bound.y + this.ball.radius, this.bound.y + this.bound.height - this.ball.radius, 0, 1)
-    let normalizedVel = this.ball.vel.copy();
+    let normalizedVel = this.ball.vel.copy()
     this.state[2] = normalizedVel.normalize().x
     this.state[3] = normalizedVel.normalize().y
     this.state[4] = map(this.left.bound.y, this.bound.y, this.bound.y + this.bound.height - this.paddleHeight, 0, 1)
