@@ -60,7 +60,6 @@ function geneticAlgorithm() {
 
   for (let i = 0; i < sims.length; i++) {
     if (sims[i].scoreIndex > sims.length / 2) {
-      let b = new Bound(0, 0, 100, 100)
       Object.assign(sims[i].AI.layers, sims[bestAIindex].AI.layers)
     }
 

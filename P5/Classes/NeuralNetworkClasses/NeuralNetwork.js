@@ -33,6 +33,10 @@ class NeuralNetwork {
         }
     }
 
+    printRAWNetwork() {
+
+    }
+
     setInputs(inputArray) {
         if (inputArray.length == this.layerSizes[0]) {
             for (let y = 0; y < this.layers[0].length; y++) {
