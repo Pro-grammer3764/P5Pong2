@@ -20,6 +20,7 @@ class PongSimulation {
     this.scoreIndex = 0
     this.creationIndex = index
     this.endScore = 10
+    this.completed = false
   }
 
   show() {
@@ -64,11 +65,19 @@ class PongSimulation {
   }
 
   update() {
+    if (this.completed == true) {
+      return;
+    }
+
     this.rightBOT()
     this.updatePaddlePositions()
     this.updateBallPosition()
     this.updateAI()
     this.updateFitness()
+
+    if (this.score[1] > this.endScore) {
+      this.completed = true
+    }
   }
 
   updateFitness() {

@@ -1,7 +1,7 @@
 /// <reference path="P5Resources/p5.d.ts" />
 
 let sims = []
-const gamesLength = 4; // *actual amount of games is gamesLength ^ 2
+const gamesLength = 2; // *actual amount of games is gamesLength ^ 2
 
 function setup() {
   createCanvas(800, 800)
@@ -13,28 +13,35 @@ function setup() {
     let y = floor(i / gamesSize)
     let b = new Bound(x * unit.x, y * unit.y, unit.x, unit.y)
     sims.push(new PongSimulation(b, i))
+    sims[i].AI.randomizeWeights()
+    sims[i].AI.randomizeBias()
   }
 }
 
 function draw() {
-  background(0, 50)
-  sims.forEach(i => { i.update(); i.show() })//update and show
-  keyInput()
+  background(0)
+  sims.forEach(i => {
+    i.update()
+    i.show()
+  }) // update and show
+  checkCompleted()
+}
+
+function checkCompleted() {
+  for (let i = 0; i < sims.length; i++) {
+    if (sims[i].completed == false) {
+      return false
+    }
+  }
+
+  console.log("cycle completed, next generation")
+  noLoop()
+  return true
 }
 
 function indexGames() {
   let sorted = sims.toSorted((a, b) => { return b.fitness - a.fitness })
   for (let i = 0; i < sorted.length; i++) {
     sorted[i].scoreIndex = i
-  }
-  print(sorted)
-}
-
-function keyInput() {
-  if (keyIsDown(UP_ARROW)) {
-    indexGames()
-  }
-  if (keyIsDown(DOWN_ARROW)) {
-    noLoop()
   }
 }

@@ -62,7 +62,14 @@ class NeuralNetwork {
                 if (this.layers[x][y].weights) {
                     for (let n = 0; n < this.layers[x][y].weights.length; n++) {
                         push()
-                        stroke(256, 20)
+                        let value = this.layers[x][y].weights[n]
+                        strokeWeight(value * radius / 10)
+                        if (value < 0) {
+                            stroke(abs(value) * 128, 0, 0, 20)
+                        } else {
+                            stroke(0, abs(value) * 255, 0, 20)
+                        }
+
                         translate(Xpos, Ypos)
                         line(0, 0, unitX, ((n + 1) * (this.bound.height / (this.layerSizes[x + 1] + 1))) - Ypos)
                         pop()
@@ -71,9 +78,9 @@ class NeuralNetwork {
 
                 // draw neuron
                 push()
-                stroke(256, 100)
-                strokeWeight(1)
-                fill(this.layers[x][y].value * 256)
+                stroke(0, 0, abs(this.layers[x][y].bais) * 255)
+                strokeWeight(2)
+                fill(abs(this.layers[x][y].value) * 255)
                 ellipse(Xpos, Ypos, radius, radius)
                 pop()
             }
