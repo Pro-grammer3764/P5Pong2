@@ -12,18 +12,20 @@ class PongSimulation {
 
     //AI
     this.state = [0, 0, 0, 0, 0]
-    this.AI = new NeuralNetwork([5, 3, 1, 0], new Bound(this.bound.x + (this.bound.width / 6), this.bound.y + (this.bound.height / 2), (this.bound.width / 3) * 2, (this.bound.height / 8) * 3))
+    this.AI = new NeuralNetwork([5, 2, 1, 0], new Bound(this.bound.x + (this.bound.width / 6), this.bound.y + (this.bound.height / 2), (this.bound.width / 3) * 2, (this.bound.height / 8) * 3))
     this.outputSensitivity = 0.1
 
     //Genetic algorithm
     this.fitness = 0
     this.scoreIndex = 0
+    this.scoreIndexColor = [255, 255, 255]
     this.creationIndex = index
-    this.endScore = 3
+    this.endScore = 10
     this.completed = false
   }
 
   show() {
+    this.bound.color = this.scoreIndexColor
     this.bound.show(false) //nofill
     this.left.show(true) //fill
     this.right.show(true) //fill
@@ -48,12 +50,15 @@ class PongSimulation {
     text(this.creationIndex + 1, this.bound.x + this.bound.width / 3, this.bound.y + this.bound.height * 0.94)
 
     //score index
+    push()
+    fill(this.scoreIndexColor)
     text(this.scoreIndex + 1, this.bound.x + (this.bound.width / 3) * 2, this.bound.y + this.bound.height * 0.94)
+    pop()
     pop()
 
     //center line
     push()
-    stroke(256, 50)
+    stroke(255, 50)
     translate(this.bound.x + this.bound.width / 2, this.bound.y)
     line(0, 0, 0, this.bound.height / 2)
     line(0, (this.bound.height / 8) * 7, 0, this.bound.height)
@@ -179,8 +184,6 @@ class PongSimulation {
     this.ball.randomVel()
     this.left.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
     this.right.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
-
-    this.fitness -= 5
   }
 
   reflectHotizontal() {

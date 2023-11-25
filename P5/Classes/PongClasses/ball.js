@@ -12,7 +12,7 @@ class Ball {
   show() {
     push()
     translate(this.pos.x, this.pos.y)
-    stroke(this.color)
+    stroke(0)
     fill(this.color)
     strokeWeight(1)
     ellipse(0, 0, this.radius * 2)

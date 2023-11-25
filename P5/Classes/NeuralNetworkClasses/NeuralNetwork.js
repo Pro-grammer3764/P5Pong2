@@ -1,6 +1,7 @@
 class NeuralNetwork {
     constructor(layerSizes, bound) {
         this.bound = bound
+        if (this.bound) { this.bound.color = [255, 255, 255, 50] }
         this.layers = []
         for (let x = 0; x < layerSizes.length - 1; x++) {
             const layer = []
