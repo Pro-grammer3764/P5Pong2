@@ -4,7 +4,7 @@ let sims = []
 
 function setup() {
   createCanvas(800, 800)
-  const gamesLength = 1; // *actual amount of games is squared
+  const gamesLength = 2; // *actual amount of games is squared
   const unit = createVector(width / gamesLength, height / gamesLength)
 
   for (let x = 0; x < gamesLength; x++) {
@@ -22,12 +22,7 @@ function setup() {
 function draw() {
   background(0, 50)
 
-  sims.forEach(x => {
-    x.forEach(y => {
-      y.update()
-      y.show()
-    })
-  })
+  sims.forEach(x => { x.forEach(y => { y.update(); y.show() }) }) //update and show
 }
 
 function keyInput() {

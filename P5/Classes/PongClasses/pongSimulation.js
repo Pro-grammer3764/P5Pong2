@@ -60,8 +60,9 @@ class PongSimulation {
 
   updateFitness() {
     if (this.ball.pos.y > this.left.bound.y && this.ball.pos.y < this.left.bound.y + this.left.bound.height) {
-      this.fitness += 0.001
+      this.fitness += 0.01
     }
+    this.fitness += 0.0001
   }
 
   updateAI() {

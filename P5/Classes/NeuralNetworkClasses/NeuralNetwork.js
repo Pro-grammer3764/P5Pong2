@@ -118,8 +118,10 @@ class NeuralNetwork {
     }
 
     activationFunction = (x) => {
-        // return 1 / (1 + (pow(Math.E, -x))) //sigmoid
-
         return max(0, x) // ReLu
+    }
+
+    sigmoid = (x) => {
+        return 1 / (1 + (pow(Math.E, -x)))
     }
 }

@@ -29,7 +29,7 @@
  *   @param [sync] start synchronously (optional)
  *   @return a p5 instance
  */
-declare function constructor(sketch: Function, node?: HTMLElement|boolean, sync?: boolean);
+declare function constructor(sketch: Function, node?: HTMLElement | boolean, sync?: boolean);
 
 // src/color/creating_reading.js
 
@@ -41,7 +41,7 @@ declare function constructor(sketch: Function, node?: HTMLElement|boolean, sync?
  *   CSS color
  *   @return the alpha value
  */
-declare function alpha(color: p5.Color|number[]|string): number;
+declare function alpha(color: p5.Color | number[] | string): number;
 
 /**
  *   Extracts the blue value from a color or pixel 
@@ -51,7 +51,7 @@ declare function alpha(color: p5.Color|number[]|string): number;
  *   CSS color
  *   @return the blue value
  */
-declare function blue(color: p5.Color|number[]|string): number;
+declare function blue(color: p5.Color | number[] | string): number;
 
 /**
  *   Extracts the HSB brightness value from a color or 
@@ -61,7 +61,7 @@ declare function blue(color: p5.Color|number[]|string): number;
  *   CSS color
  *   @return the brightness value
  */
-declare function brightness(color: p5.Color|number[]|string): number;
+declare function brightness(color: p5.Color | number[] | string): number;
 
 /**
  *   Creates colors for storing in variables of the 
@@ -214,7 +214,7 @@ declare function color(color: p5.Color): p5.Color;
  *   CSS color
  *   @return the green value
  */
-declare function green(color: p5.Color|number[]|string): number;
+declare function green(color: p5.Color | number[] | string): number;
 
 /**
  *   Extracts the hue value from a color or pixel 
@@ -231,7 +231,7 @@ declare function green(color: p5.Color|number[]|string): number;
  *   CSS color
  *   @return the hue
  */
-declare function hue(color: p5.Color|number[]|string): number;
+declare function hue(color: p5.Color | number[] | string): number;
 
 /**
  *   Blends two colors to find a third color somewhere 
@@ -262,7 +262,7 @@ declare function lerpColor(c1: p5.Color, c2: p5.Color, amt: number): p5.Color;
  *   CSS color
  *   @return the lightness
  */
-declare function lightness(color: p5.Color|number[]|string): number;
+declare function lightness(color: p5.Color | number[] | string): number;
 
 /**
  *   Extracts the red value from a color or pixel 
@@ -272,7 +272,7 @@ declare function lightness(color: p5.Color|number[]|string): number;
  *   CSS color
  *   @return the red value
  */
-declare function red(color: p5.Color|number[]|string): number;
+declare function red(color: p5.Color | number[] | string): number;
 
 /**
  *   Extracts the saturation value from a color or 
@@ -287,7 +287,7 @@ declare function red(color: p5.Color|number[]|string): number;
  *   CSS color
  *   @return the saturation value
  */
-declare function saturation(color: p5.Color|number[]|string): number;
+declare function saturation(color: p5.Color | number[] | string): number;
 
 // src/color/setting.js
 
@@ -1674,7 +1674,7 @@ declare var focused: boolean;
  *   cursor
  *   @param [y] the vertical active spot of the cursor
  */
-declare function cursor(type: string|any, x?: number, y?: number): void;
+declare function cursor(type: string | any, x?: number, y?: number): void;
 
 /**
  *   Specifies the number of frames to be displayed 
@@ -2123,7 +2123,7 @@ declare function resetMatrix(): p5;
  *   @param [axis] (in 3d) the axis to rotate around
  *   @chainable
  */
-declare function rotate(angle: number, axis?: p5.Vector|number[]): p5;
+declare function rotate(angle: number, axis?: p5.Vector | number[]): p5;
 
 /**
  *   Rotates around X axis.
@@ -2181,7 +2181,7 @@ declare function rotateZ(angle: number): p5;
  *   z-axis (webgl only)
  *   @chainable
  */
-declare function scale(s: number|p5.Vector|number[], y?: number, z?: number): p5;
+declare function scale(s: number | p5.Vector | number[], y?: number, z?: number): p5;
 
 /**
  *   Increases or decreases the size of a shape by 
@@ -2207,7 +2207,7 @@ declare function scale(s: number|p5.Vector|number[], y?: number, z?: number): p5
  *   object
  *   @chainable
  */
-declare function scale(scales: p5.Vector|number[]): p5;
+declare function scale(scales: p5.Vector | number[]): p5;
 
 /**
  *   Shears a shape around the x-axis the amount 
@@ -2494,7 +2494,7 @@ declare function vertex(x: number, y: number, z?: number, u?: number, v?: number
  *
  *   @param key or object
  */
-declare function createStringDict(key: string|object, value: string): p5.StringDict;
+declare function createStringDict(key: string | object, value: string): p5.StringDict;
 
 /**
  *   Creates a new instance of p5.NumberDict using the 
@@ -2502,7 +2502,7 @@ declare function createStringDict(key: string|object, value: string): p5.StringD
  *
  *   @param key or object
  */
-declare function createNumberDict(key: number|object, value: number): p5.NumberDict;
+declare function createNumberDict(key: number | object, value: number): p5.NumberDict;
 
 // src/events/acceleration.js
 
@@ -3098,7 +3098,7 @@ declare function createImage(width: number, height: number): p5.Image;
  *   specific html5 canvas (optional)
  *   @param [extension] 'jpg' or 'png'
  */
-declare function saveCanvas(selectedCanvas: p5.Element|HTMLCanvasElement, filename?: string, extension?: string): void;
+declare function saveCanvas(selectedCanvas: p5.Element | HTMLCanvasElement, filename?: string, extension?: string): void;
 
 /**
  *   Save the current canvas as an image. In Safari, 
@@ -3196,7 +3196,7 @@ declare function loadImage(path: string, successCallback?: (p1: p5.Image) => any
  *   @param [width] the width to draw the image
  *   @param [height] the height to draw the image
  */
-declare function image(img: p5.Image|p5.Element, x: number, y: number, width?: number, height?: number): void;
+declare function image(img: p5.Image | p5.Element, x: number, y: number, width?: number, height?: number): void;
 
 /**
  *   Draw an image to the p5.js canvas. This function 
@@ -3239,7 +3239,7 @@ declare function image(img: p5.Image|p5.Element, x: number, y: number, width?: n
  *   the source image to draw into the destination 
  *   rectangle
  */
-declare function image(img: p5.Image|p5.Element, dx: number, dy: number, dWidth: number, dHeight: number, sx: number, sy: number, sWidth?: number, sHeight?: number): void;
+declare function image(img: p5.Image | p5.Element, dx: number, dy: number, dWidth: number, dHeight: number, sx: number, sy: number, sWidth?: number, sHeight?: number): void;
 
 /**
  *   Sets the fill value for displaying images. Images 
@@ -3480,7 +3480,7 @@ declare function blend(sx: number, sy: number, sw: number, sh: number, dx: numbe
  *   @param dw destination image width
  *   @param dh destination image height
  */
-declare function copy(srcImage: p5.Image|p5.Element, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void;
+declare function copy(srcImage: p5.Image | p5.Element, sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void;
 
 /**
  *   Copies a region of the canvas to another region of 
@@ -3605,7 +3605,7 @@ declare function filter(filterType: FILTER_TYPE, filterParam?: number): void;
  *   @return values of pixel at x,y in array format [R, 
  *   G, B, A] or p5.Image
  */
-declare function get(x?: number, y?: number, w?: number, h?: number): number[]|p5.Image;
+declare function get(x?: number, y?: number, w?: number, h?: number): number[] | p5.Image;
 
 /**
  *   Loads the pixel data for the display window into 
@@ -3650,7 +3650,7 @@ declare function loadPixels(): void;
  *   @param c insert a grayscale value | a pixel array 
  *   | a p5.Color object | a p5.Image to copy
  */
-declare function set(x: number, y: number, c: number|number[]|object): void;
+declare function set(x: number, y: number, c: number | number[] | object): void;
 
 /**
  *   Updates the display window with the data in the 
@@ -3698,7 +3698,7 @@ declare function updatePixels(x?: number, y?: number, w?: number, h?: number): v
  *   argument
  *   @return JSON data
  */
-declare function loadJSON(path: string, jsonpOptions?: object, datatype?: string, callback?: Function, errorCallback?: Function): object|any[];
+declare function loadJSON(path: string, jsonpOptions?: object, datatype?: string, callback?: Function, errorCallback?: Function): object | any[];
 
 /**
  *   Reads the contents of a file and creates a String 
@@ -3989,7 +3989,7 @@ declare function createWriter(name: string, extension?: string): p5.PrintWriter;
  *   indicates that the output will be optimized for 
  *   filesize, rather than readability.
  */
-declare function save(objectOrFilename?: object|string, filename?: string, options?: boolean|string): void;
+declare function save(objectOrFilename?: object | string, filename?: string, options?: boolean | string): void;
 
 /**
  *   Writes the contents of an Array or a JSON object 
@@ -4001,7 +4001,7 @@ declare function save(objectOrFilename?: object|string, filename?: string, optio
  *   spaces from the output file to optimize filesize 
  *   (but not readability).
  */
-declare function saveJSON(json: any[]|object, filename: string, optimize?: boolean): void;
+declare function saveJSON(json: any[] | object, filename: string, optimize?: boolean): void;
 
 /**
  *   Writes an array of Strings to a text file, one 
@@ -4783,7 +4783,7 @@ declare function loadFont(path: string, callback?: Function, onError?: Function)
  *   box, see rectMode() for more info
  *   @chainable
  */
-declare function text(str: string|object|any[], x: number, y: number, x2?: number, y2?: number): p5;
+declare function text(str: string | object | any[], x: number, y: number, x2?: number, y2?: number): p5;
 
 /**
  *   Sets the current font that will be drawn with the 
@@ -4803,7 +4803,7 @@ declare function textFont(): object;
  *   @param [size] the font size to use
  *   @chainable
  */
-declare function textFont(font: object|string, size?: number): p5;
+declare function textFont(font: object | string, size?: number): p5;
 
 // src/utilities/array_functions.js
 
@@ -4988,7 +4988,7 @@ declare function float(str: string): number;
  *   @param n value to parse
  *   @return integer representation of value
  */
-declare function int(n: string|boolean|number): number;
+declare function int(n: string | boolean | number): number;
 
 /**
  *   Converts a boolean, string, or float to its 
@@ -5010,7 +5010,7 @@ declare function int(ns: any[]): number[];
  *   @param n value to parse
  *   @return string representation of value
  */
-declare function str(n: string|boolean|number|any[]): string;
+declare function str(n: string | boolean | number | any[]): string;
 
 /**
  *   Converts a number or string to its boolean 
@@ -5025,7 +5025,7 @@ declare function str(n: string|boolean|number|any[]): string;
  *   @param n value to parse
  *   @return boolean representation of value
  */
-declare function boolean(n: string|boolean|number|any[]): boolean;
+declare function boolean(n: string | boolean | number | any[]): boolean;
 
 /**
  *   Converts a number, string representation of a 
@@ -5040,7 +5040,7 @@ declare function boolean(n: string|boolean|number|any[]): boolean;
  *   @param n value to parse
  *   @return byte representation of value
  */
-declare function byte(n: string|boolean|number): number;
+declare function byte(n: string | boolean | number): number;
 
 /**
  *   Converts a number, string representation of a 
@@ -5070,7 +5070,7 @@ declare function byte(ns: any[]): number[];
  *   @param n value to parse
  *   @return string representation of value
  */
-declare function char(n: string|number): string;
+declare function char(n: string | number): string;
 
 /**
  *   Converts a number or string to its corresponding 
@@ -5256,7 +5256,7 @@ declare function matchAll(str: string, regexp: string): string[];
  *   the decimal point
  *   @return formatted String
  */
-declare function nf(num: number|string, left?: number|string, right?: number|string): string;
+declare function nf(num: number | string, left?: number | string, right?: number | string): string;
 
 /**
  *   Utility function for formatting numbers into 
@@ -5272,7 +5272,7 @@ declare function nf(num: number|string, left?: number|string, right?: number|str
  *   the decimal point
  *   @return formatted Strings
  */
-declare function nf(nums: any[], left?: number|string, right?: number|string): string[];
+declare function nf(nums: any[], left?: number | string, right?: number | string): string[];
 
 /**
  *   Utility function for formatting numbers into 
@@ -5287,7 +5287,7 @@ declare function nf(nums: any[], left?: number|string, right?: number|string): s
  *   the decimal point
  *   @return formatted String
  */
-declare function nfc(num: number|string, right?: number|string): string;
+declare function nfc(num: number | string, right?: number | string): string;
 
 /**
  *   Utility function for formatting numbers into 
@@ -5302,7 +5302,7 @@ declare function nfc(num: number|string, right?: number|string): string;
  *   the decimal point
  *   @return formatted Strings
  */
-declare function nfc(nums: any[], right?: number|string): string[];
+declare function nfc(nums: any[], right?: number | string): string[];
 
 /**
  *   Utility function for formatting numbers into 
@@ -5631,7 +5631,7 @@ declare function directionalLight(v1: number, v2: number, v3: number, position: 
  *   @param z z axis direction
  *   @chainable
  */
-declare function directionalLight(color: number[]|string|p5.Color, x: number, y: number, z: number): p5;
+declare function directionalLight(color: number[] | string | p5.Color, x: number, y: number, z: number): p5;
 
 /**
  *   Creates a directional light with a color and a 
@@ -5642,7 +5642,7 @@ declare function directionalLight(color: number[]|string|p5.Color, x: number, y:
  *   @param position the direction of the light
  *   @chainable
  */
-declare function directionalLight(color: number[]|string|p5.Color, position: p5.Vector): p5;
+declare function directionalLight(color: number[] | string | p5.Color, position: p5.Vector): p5;
 
 /**
  *   Creates a directional light with a color and a 
@@ -5698,7 +5698,7 @@ declare function pointLight(v1: number, v2: number, v3: number, position: p5.Vec
  *   @param z z axis position
  *   @chainable
  */
-declare function pointLight(color: number[]|string|p5.Color, x: number, y: number, z: number): p5;
+declare function pointLight(color: number[] | string | p5.Color, x: number, y: number, z: number): p5;
 
 /**
  *   Creates a point light with a color and a light 
@@ -5709,7 +5709,7 @@ declare function pointLight(color: number[]|string|p5.Color, x: number, y: numbe
  *   @param position the position of the light
  *   @chainable
  */
-declare function pointLight(color: number[]|string|p5.Color, position: p5.Vector): p5;
+declare function pointLight(color: number[] | string | p5.Color, position: p5.Vector): p5;
 
 // src/webgl/loading.js
 
@@ -5816,7 +5816,7 @@ declare function normalMaterial(): p5;
  *   texture
  *   @chainable
  */
-declare function texture(tex: p5.Image|p5.MediaElement|p5.Graphics): p5;
+declare function texture(tex: p5.Image | p5.MediaElement | p5.Graphics): p5;
 
 /**
  *   Ambient material for geometry with a given color. 
@@ -5841,7 +5841,7 @@ declare function ambientMaterial(v1: number, v2?: number, v3?: number, a?: numbe
  *   string
  *   @chainable
  */
-declare function ambientMaterial(color: number[]|string|p5.Color): p5;
+declare function ambientMaterial(color: number[] | string | p5.Color): p5;
 
 /**
  *   Specular material for geometry with a given color. 
@@ -5865,7 +5865,7 @@ declare function specularMaterial(v1: number, v2?: number, v3?: number, a?: numb
  *   @param color color Array, or CSS color string
  *   @chainable
  */
-declare function specularMaterial(color: number[]|string|p5.Color): p5;
+declare function specularMaterial(color: number[] | string | p5.Color): p5;
 
 // src/webgl/p5.RendererGL.js
 
@@ -6141,7 +6141,7 @@ declare function soundFormats(formats?: string): void;
  *   to search within
  *   @return p5.Element containing node found
  */
-declare function select(name: string, container?: string): object|p5.Element|null;
+declare function select(name: string, container?: string): object | p5.Element | null;
 
 /**
  *   Searches the page for elements with the given 
@@ -6178,7 +6178,7 @@ declare function removeElements(): void;
  *   @param [html] inner HTML for element created
  *   @return pointer to p5.Element holding created node
  */
-declare function createDiv(html?: string): object|p5.Element;
+declare function createDiv(html?: string): object | p5.Element;
 
 /**
  *   Creates a <p></p> element in the DOM with given 
@@ -6189,7 +6189,7 @@ declare function createDiv(html?: string): object|p5.Element;
  *   @param [html] inner HTML for element created
  *   @return pointer to p5.Element holding created node
  */
-declare function createP(html?: string): object|p5.Element;
+declare function createP(html?: string): object | p5.Element;
 
 /**
  *   Creates a <span></span> element in the DOM with 
@@ -6199,7 +6199,7 @@ declare function createP(html?: string): object|p5.Element;
  *   @param [html] inner HTML for element created
  *   @return pointer to p5.Element holding created node
  */
-declare function createSpan(html?: string): object|p5.Element;
+declare function createSpan(html?: string): object | p5.Element;
 
 /**
  *   Creates an <img> element in the DOM with given src 
@@ -6213,7 +6213,7 @@ declare function createSpan(html?: string): object|p5.Element;
  *   once image data is loaded
  *   @return pointer to p5.Element holding created node
  */
-declare function createImg(src: string, alt?: string, successCallback?: Function): object|p5.Element;
+declare function createImg(src: string, alt?: string, successCallback?: Function): object | p5.Element;
 
 /**
  *   Creates an <a></a> element in the DOM for 
@@ -6227,7 +6227,7 @@ declare function createImg(src: string, alt?: string, successCallback?: Function
  *   could be _blank, _self, _parent, _top.
  *   @return pointer to p5.Element holding created node
  */
-declare function createA(href: string, html: string, target?: string): object|p5.Element;
+declare function createA(href: string, html: string, target?: string): object | p5.Element;
 
 /**
  *   Creates a slider <input></input> element in the 
@@ -6244,7 +6244,7 @@ declare function createA(href: string, html: string, target?: string): object|p5
  *   value)
  *   @return pointer to p5.Element holding created node
  */
-declare function createSlider(min: number, max: number, value?: number, step?: number): object|p5.Element;
+declare function createSlider(min: number, max: number, value?: number, step?: number): object | p5.Element;
 
 /**
  *   Creates a <button></button> element in the DOM. 
@@ -6257,7 +6257,7 @@ declare function createSlider(min: number, max: number, value?: number, step?: n
  *   @param [value] value of the button
  *   @return pointer to p5.Element holding created node
  */
-declare function createButton(label: string, value?: string): object|p5.Element;
+declare function createButton(label: string, value?: string): object | p5.Element;
 
 /**
  *   Creates a checkbox <input></input> element in the 
@@ -6269,7 +6269,7 @@ declare function createButton(label: string, value?: string): object|p5.Element;
  *   true, unchecked is false
  *   @return pointer to p5.Element holding created node
  */
-declare function createCheckbox(label?: string, value?: boolean): object|p5.Element;
+declare function createCheckbox(label?: string, value?: boolean): object | p5.Element;
 
 /**
  *   Creates a dropdown menu <select></select> element 
@@ -6303,7 +6303,7 @@ declare function createSelect(existing: object): p5.Element;
  *   and input field respectively
  *   @return pointer to p5.Element holding created node
  */
-declare function createRadio(divId?: string): object|p5.Element;
+declare function createRadio(divId?: string): object | p5.Element;
 
 /**
  *   Creates an <input></input> element in the DOM for 
@@ -6316,7 +6316,7 @@ declare function createRadio(divId?: string): object|p5.Element;
  *   Defaults to text
  *   @return pointer to p5.Element holding created node
  */
-declare function createInput(value?: string, type?: string): object|p5.Element;
+declare function createInput(value?: string, type?: string): object | p5.Element;
 
 /**
  *   Creates an <input></input> element in the DOM of 
@@ -6330,7 +6330,7 @@ declare function createInput(value?: string, type?: string): object|p5.Element;
  *   @return pointer to p5.Element holding created DOM 
  *   element
  */
-declare function createFileInput(callback?: Function, multiple?: string): object|p5.Element;
+declare function createFileInput(callback?: Function, multiple?: string): object | p5.Element;
 
 /**
  *   Creates an HTML5 <video> element in the DOM for 
@@ -6356,7 +6356,7 @@ declare function createFileInput(callback?: Function, multiple?: string): object
  *   buffering of content
  *   @return pointer to video p5.Element
  */
-declare function createVideo(src: string|any[], callback?: object): p5.MediaElement|p5.Element;
+declare function createVideo(src: string | any[], callback?: object): p5.MediaElement | p5.Element;
 
 /**
  *   Creates a hidden HTML5 <audio> element in the DOM 
@@ -6380,7 +6380,7 @@ declare function createVideo(src: string|any[], callback?: object): p5.MediaElem
  *   buffering of content
  *   @return pointer to audio p5.Element /**
  */
-declare function createAudio(src?: string|string[], callback?: object): p5.MediaElement|p5.Element;
+declare function createAudio(src?: string | string[], callback?: object): p5.MediaElement | p5.Element;
 
 /**
  *   Creates a new <video> element that contains the 
@@ -6404,7 +6404,7 @@ declare function createAudio(src?: string|string[], callback?: object): p5.Media
  *   has loaded
  *   @return capture video p5.Element
  */
-declare function createCapture(type: string|any|object, callback: Function): object|p5.Element;
+declare function createCapture(type: string | any | object, callback: Function): object | p5.Element;
 
 /**
  *   Creates element with given tag in the DOM with 
@@ -6416,7 +6416,7 @@ declare function createCapture(type: string|any|object, callback: Function): obj
  *   the element
  *   @return pointer to p5.Element holding created node
  */
-declare function createElement(tag: string, content?: string): object|p5.Element;
+declare function createElement(tag: string, content?: string): object | p5.Element;
 
 // Properties from p5.sound
 
@@ -6467,7 +6467,7 @@ declare function getMasterVolume(): number;
  *   @param [timeFromNow] Schedule this event to happen 
  *   at t seconds in the future
  */
-declare function masterVolume(volume: number|object, rampTime?: number, timeFromNow?: number): void;
+declare function masterVolume(volume: number | object, rampTime?: number, timeFromNow?: number): void;
 
 /**
  *   p5.soundOut is the p5.sound master output. It 
