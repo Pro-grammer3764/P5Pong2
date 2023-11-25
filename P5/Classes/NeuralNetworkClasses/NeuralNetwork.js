@@ -34,7 +34,8 @@ class NeuralNetwork {
     }
 
     printRAWNetwork() {
-
+        // figure out how to write to JSON file
+        // read from JSON
     }
 
     setInputs(inputArray) {
@@ -45,6 +46,29 @@ class NeuralNetwork {
         } else {
             console.error("Error: input size does not match network layer[0]")
         }
+    }
+
+    copyFrom(inputNetwork) {
+        inputNetwork.layers.forEach((layer, x) => {
+            layer.forEach((node, y) => {
+                this.layers[x][y].bais = node.bais
+                this.layers[x][y].weights = Array.from(node.weights)
+            })
+        })
+    }
+
+    copyFromCrossover(inputNetwork1, inputNetwork2) {
+        this.layers.forEach((layer, x) => {
+            for (let y = 0; y < layer.length; y++) {
+                if (random(0, 1) > 0.5) { layer[y].bais = inputNetwork1.layers[x][y].bais }
+                else { layer[y].bais = inputNetwork2.layers[x][y].bais }
+
+                for (let n = 0; n < layer[y].weights.length; n++) {
+                    if (random(0, 1) > 0.5) { layer[y].weights[n] = inputNetwork1.layers[x][y].weights[n] }
+                    else { layer[y].weights[n] = inputNetwork2.layers[x][y].weights[n] }
+                }
+            }
+        })
     }
 
     drawnNetwork() {

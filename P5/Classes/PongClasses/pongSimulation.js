@@ -88,9 +88,9 @@ class PongSimulation {
 
   updateFitness() {
     if (this.ball.pos.y > this.left.bound.y && this.ball.pos.y < this.left.bound.y + this.left.bound.height) {
-      this.fitness += 0.01
+      this.fitness += 0.03 // accuracy fitness
     }
-    this.fitness += 0.0001
+    this.fitness += 0.0001 // passive fitness per update cycle
   }
 
   updateAI() {
@@ -134,9 +134,11 @@ class PongSimulation {
     //wall collision
     if (this.ball.pos.x + this.ball.radius > this.bound.x + this.bound.width) {
       this.score[0]++
+      this.fitness++
       this.resetBall()
     } else if (this.ball.pos.x - this.ball.radius < this.bound.x) {
       this.score[1]++
+      this.fitness--
       this.resetBall()
     } else if (this.ball.pos.y + this.ball.radius > this.bound.y + this.bound.height) {
       this.reflectHotizontal()

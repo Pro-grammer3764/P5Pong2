@@ -42,7 +42,9 @@ function checkCompleted() {
 }
 
 function geneticAlgorithm() {
-  // for now the genetic algorithm will reset the worst 50% of the poplation and leave the to 50% as "winners"
+  // current genetic algorithm behavior:
+  // worst 50% of AI's copy from best AI
+  // mutate all
   indexGames()
 
   let topScore = "Best Score: "
@@ -60,10 +62,10 @@ function geneticAlgorithm() {
 
   for (let i = 0; i < sims.length; i++) {
     if (sims[i].scoreIndex > sims.length / 2) {
-      Object.assign(sims[i].AI.layers, sims[bestAIindex].AI.layers)
+      sims[i].AI.copyFrom(sims[bestAIindex].AI)
     }
 
-    // sims[i].AI.mutate()
+    sims[i].AI.mutate()
     sims[i].score = [0, 0]
     sims[i].scoreIndex = 0
     sims[i].fitness = 0
