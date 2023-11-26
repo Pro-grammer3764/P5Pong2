@@ -9,7 +9,7 @@ class PongSimulation {
     this.left = new PongPaddle(new Bound(this.bound.x + this.margin, this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
     this.right = new PongPaddle(new Bound(this.bound.x + this.bound.width - (this.margin + this.paddleWidth), this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
     this.ball = new Ball(new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector, this.bound.width / 80)
-    this.simulationSpeed = 10
+    this.simulationSpeed = 1
 
     //AI
     this.state = [0, 0, 0, 0, 0]
@@ -41,19 +41,19 @@ class PongSimulation {
     text(this.score[0], this.bound.x + this.bound.width * 0.25, this.bound.y + this.bound.height / 8)
     text(this.score[1], this.bound.x + this.bound.width * 0.75, this.bound.y + this.bound.height / 8)
 
-    //fitness
+    // fitness
     textSize(this.bound.width / 40)
     fill(256)
     text(nf(this.fitness, 1, 3), this.bound.x + this.bound.width / 2, this.bound.y + (this.bound.height / 16) * 13.5)
 
     textSize(this.bound.width / 20)
-    //creation index
-    text(this.creationIndex + 1, this.bound.x + this.bound.width / 3, this.bound.y + this.bound.height * 0.94)
+    // creation index
+    // text(this.creationIndex + 1, this.bound.x + this.bound.width / 3, this.bound.y + this.bound.height * 0.94)
 
     //score index
     push()
-    fill(this.scoreIndexColor)
-    text(this.scoreIndex + 1, this.bound.x + (this.bound.width / 3) * 2, this.bound.y + this.bound.height * 0.94)
+    // fill(this.scoreIndexColor)
+    // text(this.scoreIndex + 1, this.bound.x + (this.bound.width / 3) * 2, this.bound.y + this.bound.height * 0.94)
     pop()
     pop()
 
@@ -216,13 +216,13 @@ class PongSimulation {
   }
 
   rightBOT() {
-    // this.right.bound.y = this.ball.pos.y - (this.paddleHeight / 2)
+    // this.right.bound.y = mouseY - (this.paddleHeight / 2)
 
     // basically what the AI should immitate
-    if (this.right.bound.y > this.ball.pos.y - (this.paddleHeight / 2)) {
-      this.rightUP()
-    } else {
-      this.rightDOWN()
-    }
+    // if (this.right.bound.y > this.ball.pos.y - (this.paddleHeight / 2)) {
+    //   this.rightUP()
+    // } else {
+    //   this.rightDOWN()
+    // }
   }
 }

@@ -1,7 +1,9 @@
 /// <reference path="P5Resources/p5.d.ts" />
 
 let sims = []
-const gamesLength = 16; // *actual amount of games is gamesLength ^ 2
+const gamesLength = 100 // *actual amount of games is gamesLength ^ 2
+let generationCount = 0
+let deltaTime = 0
 
 function setup() {
   frameRate(60)
@@ -22,7 +24,8 @@ function setup() {
 
 function draw() {
   background(0)
-  indexGames()
+  if (frameCount % 60 == 0) { indexGames() }
+
   sims.forEach(i => {
     i.update()
     i.show()
@@ -43,7 +46,8 @@ function checkCompleted() {
 
 function geneticAlgorithm() {
   // current genetic algorithm behavior:
-  // worst 50% of AI's copy from best AI
+  // worst 50% of AI's copy from two random AI's
+  // this creates a population which is theoretically consited of only the best 50% of agents
   // mutate all
   indexGames()
 
@@ -62,17 +66,21 @@ function geneticAlgorithm() {
 
   for (let i = 0; i < sims.length; i++) {
     if (sims[i].scoreIndex > sims.length / 2) {
-      sims[i].AI.copyFrom(sims[bestAIindex].AI)
+      sims[i].AI.copyFromCrossover(sims[floor(random(0, sims.length))].AI, sims[floor(random(0, sims.length))].AI)
     }
 
-    sims[i].AI.mutate()
-    sims[i].score = [0, 0]
-    sims[i].scoreIndex = 0
-    sims[i].fitness = 0
-    sims[i].completed = false
+    sims[i].AI.mutate()         // mutate all AI's
+    sims[i].score = [0, 0]      // reset scores
+    sims[i].scoreIndex = 0      // reset score index
+    sims[i].fitness = 0         // reset fitness
+    sims[i].completed = false   // unpause simulation
   }
 
+  print("Generation: " + generationCount + ", Time Ellapsed: " + (frameCount - deltaTime))
   print(topScore + "\n" + bottomScore)
+  print(sims[bestAIindex].AI.printNetwork())
+  generationCount++
+  deltaTime = frameCount
 }
 
 function indexGames() {
