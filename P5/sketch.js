@@ -54,7 +54,12 @@ function geneticAlgorithm2() {
   }
 
   sorted.forEach((sim, i) => {
-    if (i > sorted.length / 2) {
+    if (i > sorted.length * 0.8) {
+      // set worst 20% to random in hopes of finding a better combo
+      // hopefully this will constantly cycle the agents and give more options
+      sim.AI.randomizeWeights()
+      sim.AI.randomizeBias()
+    } else if (i > sorted.length * 0.5) {
       // worst 50% copy from top 25%
       let randomIndex = floor(random(0, round(sorted.length / 4)))
       sim.AI.copyFrom(sorted[randomIndex].AI)
