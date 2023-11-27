@@ -9,7 +9,7 @@ class PongSimulation {
     this.left = new PongPaddle(new Bound(this.bound.x + this.margin, this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
     this.right = new PongPaddle(new Bound(this.bound.x + this.bound.width - (this.margin + this.paddleWidth), this.bound.y + this.bound.height / 2 - this.paddleHeight / 2, this.paddleWidth, this.paddleHeight))
     this.ball = new Ball(new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector, this.bound.width / 80)
-    this.simulationSpeed = 10
+    this.simulationSpeed = 100
 
     //AI
     this.state = [0, 0, 0, 0, 0]
@@ -79,7 +79,13 @@ class PongSimulation {
 
       this.rightBOT()
       this.updatePaddlePositions()
-      this.updateBallPosition()
+      if (this.ball.sleepTime > 20) {
+        this.updateBallPosition()
+        this.left.color = [255, 255, 255]
+      } else {
+        this.ball.sleepTime++
+        this.left.color = [255, 0, 0]
+      }
       this.updateAI()
       this.updateFitness()
 
@@ -137,11 +143,11 @@ class PongSimulation {
     //wall collision
     if (this.ball.pos.x + this.ball.radius > this.bound.x + this.bound.width) {
       this.score[0]++
-      this.fitness += 5
+      this.fitness += 50
       this.resetBall()
     } else if (this.ball.pos.x - this.ball.radius < this.bound.x) {
       this.score[1]++
-      this.fitness--
+      this.fitness -= 10
       this.resetBall()
     } else if (this.ball.pos.y + this.ball.radius > this.bound.y + this.bound.height) {
       this.reflectHotizontal()
@@ -189,6 +195,7 @@ class PongSimulation {
     this.ball.randomVel()
     this.left.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
     this.right.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
+    this.ball.sleepTime = 0
   }
 
   reflectHotizontal() {

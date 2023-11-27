@@ -11,18 +11,12 @@ class PongSimulation {
     this.ball = new Ball(new p5.Vector(this.bound.x + this.bound.width / 2, this.bound.y + this.bound.height / 2), new p5.Vector, this.bound.width / 80)
     this.simulationSpeed = 1
 
+
     //AI
     this.state = [0, 0, 0, 0, 0]
     this.AI = new NeuralNetwork([5, 2, 1, 0], new Bound(this.bound.x + (this.bound.width / 6), this.bound.y + (this.bound.height / 2), (this.bound.width / 3) * 2, (this.bound.height / 8) * 3))
     this.outputSensitivity = 0.1
-
-    //Genetic algorithm
-    this.fitness = 0
-    this.scoreIndex = 0
     this.scoreIndexColor = [255, 255, 255]
-    this.creationIndex = index
-    this.endScore = 100
-    this.completed = false
   }
 
   show() {
@@ -44,7 +38,7 @@ class PongSimulation {
     // fitness
     textSize(this.bound.width / 40)
     fill(256)
-    text(nf(this.fitness, 1, 3), this.bound.x + this.bound.width / 2, this.bound.y + (this.bound.height / 16) * 13.5)
+    text("AI Skill: " + (this.fitness + 1), this.bound.x + this.bound.width / 2, this.bound.y + (this.bound.height / 16) * 13.5)
 
     textSize(this.bound.width / 20)
     // creation index
@@ -78,10 +72,13 @@ class PongSimulation {
       }
 
       this.rightBOT()
+      if (this.ball.sleepTime > 120) {
+        this.updateBallPosition()
+      } else {
+        this.ball.sleepTime++
+      }
       this.updatePaddlePositions()
-      this.updateBallPosition()
       this.updateAI()
-      this.updateFitness()
 
       if (this.score[1] > this.endScore) {
         this.completed = true
@@ -137,11 +134,9 @@ class PongSimulation {
     //wall collision
     if (this.ball.pos.x + this.ball.radius > this.bound.x + this.bound.width) {
       this.score[0]++
-      this.fitness += 5
       this.resetBall()
     } else if (this.ball.pos.x - this.ball.radius < this.bound.x) {
       this.score[1]++
-      this.fitness--
       this.resetBall()
     } else if (this.ball.pos.y + this.ball.radius > this.bound.y + this.bound.height) {
       this.reflectHotizontal()
@@ -159,7 +154,6 @@ class PongSimulation {
         this.ball.pos.x - this.ball.radius < this.left.bound.x + this.left.bound.width) {
 
         this.reflectVertical()
-        this.fitness += 5
         this.ball.pos.x = this.left.bound.x + this.left.bound.width + this.ball.radius
       }
     } else {
@@ -189,6 +183,7 @@ class PongSimulation {
     this.ball.randomVel()
     this.left.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
     this.right.bound.y = this.bound.y + this.bound.height / 2 - this.paddleHeight / 2
+    this.ball.sleepTime = 0
   }
 
   reflectHotizontal() {

@@ -7,6 +7,7 @@ class Ball {
     this.speed = radius / 2
     this.color = [255, 255, 255]
     this.debug = false
+    this.sleepTime = 0;
   }
 
   show() {

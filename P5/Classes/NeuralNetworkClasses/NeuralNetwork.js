@@ -19,14 +19,13 @@ class NeuralNetwork {
             let line = "Layer: " + x + "\n"
             for (let y = 0; y < this.layers[x].length; y++) {
                 line += "Neuron: " + y + " - "
-                line += "Value: " + this.layers[x][y].value + ", "
+                // line += "Value: " + this.layers[x][y].value + ", "
                 line += "Bais: " + this.layers[x][y].bais
 
                 if (this.layers[x][y].weights) {
                     line += ", "
                     line += "Weights: " + this.layers[x][y].weights.toLocaleString()
                 }
-
                 line += "\n"
             }
             console.log(line)
@@ -140,7 +139,7 @@ class NeuralNetwork {
         this.layers.forEach(x => {
             x.forEach(y => {
                 for (let n = 0; n < y.weights.length; n++) {
-                    y.weights[n] = randomGaussian()
+                    y.weights[n] = random(-1, 1)
                 }
             })
         })
@@ -154,13 +153,14 @@ class NeuralNetwork {
         })
     }
 
-    mutate() {
+    mutate(r) {
         let mutationRate = 0.1
+        if (r) { mutationRate = r }
 
         this.layers.forEach(x => {
             for (let y = 0; y < x.length; y++) {
                 if (random() < mutationRate) {
-                    x[y].bais = random(-1, 1)
+                    x[y].bais += random(-0.5, 0.5)
                 }
             }
         })
@@ -169,7 +169,7 @@ class NeuralNetwork {
             x.forEach(y => {
                 for (let n = 0; n < y.weights.length; n++) {
                     if (random() < mutationRate) {
-                        y.weights[n] = randomGaussian()
+                        y.weights[n] += random(-0.5, 0.5)
                     }
                 }
             })
