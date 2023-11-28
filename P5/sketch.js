@@ -77,12 +77,8 @@ function geneticAlgorithm2() {
   })
 
   generationCount++
-  let generationTime = frameCount - deltaTime
-  deltaTime = frameCount
-  console.log("Best Fitness: " + topScore + ", Worst Fitness: " + bottomScore)
-  console.log("Generation: " + generationCount + ", Delta Franes: " + generationTime)
-  console.log("Best AI: ")
-  console.log(sorted[0].AI.layers)
+  console.log("Generation: " + generationCount + ", Best Fitness: " + topScore)
+  console.log(sorted[0].AI.printNetwork2())
 }
 
 function geneticAlgorithm() {

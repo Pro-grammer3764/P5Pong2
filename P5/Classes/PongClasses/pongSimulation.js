@@ -13,7 +13,7 @@ class PongSimulation {
 
     //AI
     this.state = [0, 0, 0, 0, 0]
-    this.AI = new NeuralNetwork([5, 2, 1, 0], new Bound(this.bound.x + (this.bound.width / 6), this.bound.y + (this.bound.height / 2), (this.bound.width / 3) * 2, (this.bound.height / 8) * 3))
+    this.AI = new NeuralNetwork([5, 5, 3, 1, 0], new Bound(this.bound.x + (this.bound.width / 6), this.bound.y + (this.bound.height / 2), (this.bound.width / 3) * 2, (this.bound.height / 8) * 3))
     this.outputSensitivity = 0.1
 
     //Genetic algorithm

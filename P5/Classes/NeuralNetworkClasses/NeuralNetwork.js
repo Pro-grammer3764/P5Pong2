@@ -32,6 +32,16 @@ class NeuralNetwork {
         }
     }
 
+    printNetwork2() {
+        let string = ""
+        this.layers.forEach((layer, x) => {
+            layer.forEach((neuron, y) => {
+                string += x + ", " + y + ": " + neuron.bais + ", [" + neuron.weights.toLocaleString() + "]\n"
+            })
+        })
+        return string
+    }
+
     printNetworkJSON() {
         // figure out how to write to JSON file
         // read from JSON
