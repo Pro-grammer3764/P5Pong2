@@ -1,6 +1,7 @@
 let game = new PongSimulation(new Bound(0, 0, 800, 800))
 let gameMode = 0
-let gameSpeed = 4
+let gameSpeed = 5
+let collection = []
 
 function setup() {
   createCanvas(800, 800);
@@ -12,9 +13,17 @@ function draw() {
   background(0);
   for (let i = 0; i < gameSpeed; i++) {
     game.update()
+    game.rightBOT()
+    collection.push([game.ball.pos.x, game.ball.pos.y, game.AI.returnOutput() * 255])
     userInput()
   }
   game.show()
+
+
+  push()
+  strokeWeight(50)
+  collection.forEach((x) => { stroke(x[2], 10); point(x[0], x[1]) })
+  pop()
 }
 
 function userInput() {
@@ -27,7 +36,7 @@ function userInput() {
 
 function keyPressed() {
   if (keyCode == 32) {
-    gameMode = (gameMode + 1) % 4
+    gameMode = (gameMode + 1) % 5
     setMode(gameMode)
   }
 }
@@ -98,6 +107,26 @@ function setMode(gameMode) {
       game.AI.layers[2][1].bais = -0.1600951071774266; game.AI.layers[2][1].weights = [2.212]
       game.AI.layers[2][2].bais = -1.1223319279386643; game.AI.layers[2][2].weights = [1.196]
       game.AI.layers[3][0].bais = -0.6139662238748353; game.AI.layers[3][0].weights = []
+      break;
+
+    case 4:
+      console.log("AI #5")
+      game = new PongSimulation(new Bound(0, 0, 800, 800))
+      game.AI = new NeuralNetwork([5, 5, 3, 1, 0], new Bound(game.bound.x + (game.bound.width / 6), game.bound.y + (game.bound.height / 2), (game.bound.width / 3) * 2, (game.bound.height / 8) * 3))
+      game.AI.layers[0][0].bais = -0.37168671782576235; game.AI.layers[0][0].weights = [-0.548, -0.683, 0.398, 0.536, 0.774]
+      game.AI.layers[0][1].bais = 0.9196125070342756; game.AI.layers[0][1].weights = [0.194, -1.488, 1.289, -0.185, 0.886]
+      game.AI.layers[0][2].bais = 0.4071353000075446; game.AI.layers[0][2].weights = [0.138, -0.903, -0.757, 0.935, 1.146]
+      game.AI.layers[0][3].bais = 0.8756880567716001; game.AI.layers[0][3].weights = [1.2, -0.216, -0.297, 0.747, -1.244]
+      game.AI.layers[0][4].bais = 2.2999417299092197; game.AI.layers[0][4].weights = [-0.485, 1.458, -0.332, 0.235, -0.25]
+      game.AI.layers[1][0].bais = 0.30082003267820046; game.AI.layers[1][0].weights = [-0.081, 0.582, 0.264]
+      game.AI.layers[1][1].bais = -0.24073319447912; game.AI.layers[1][1].weights = [0.869, 0.491, -0.813]
+      game.AI.layers[1][2].bais = 0.2109004338114009; game.AI.layers[1][2].weights = [0.267, -0.03, 1.123]
+      game.AI.layers[1][3].bais = 0.618650033358003; game.AI.layers[1][3].weights = [0.59, 1.044, 0.215]
+      game.AI.layers[1][4].bais = -1.4832756468794972; game.AI.layers[1][4].weights = [0.167, 0.846, 0.865]
+      game.AI.layers[2][0].bais = 0.4669660760988277; game.AI.layers[2][0].weights = [1.638]
+      game.AI.layers[2][1].bais = -0.2100803598661991; game.AI.layers[2][1].weights = [-0.056]
+      game.AI.layers[2][2].bais = 0.40369002947995747; game.AI.layers[2][2].weights = [-1.088]
+      game.AI.layers[3][0].bais = 0.3440093519585452; game.AI.layers[3][0].weights = []
       break;
     default:
       break;

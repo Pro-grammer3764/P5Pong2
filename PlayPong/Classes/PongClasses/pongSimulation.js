@@ -214,10 +214,10 @@ class PongSimulation {
     // this.right.bound.y = mouseY - (this.paddleHeight / 2)
 
     // basically what the AI should immitate
-    // if (this.right.bound.y > this.ball.pos.y - (this.paddleHeight / 2)) {
-    //   this.rightUP()
-    // } else {
-    //   this.rightDOWN()
-    // }
+    if (this.right.bound.y > this.ball.pos.y - (this.paddleHeight / 2)) {
+      this.rightUP()
+    } else {
+      this.rightDOWN()
+    }
   }
 }
