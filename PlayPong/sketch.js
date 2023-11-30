@@ -10,11 +10,11 @@ function setup() {
 
 
 function draw() {
-  background(0);
+  background(0, 10);
   for (let i = 0; i < gameSpeed; i++) {
     game.update()
-    game.rightBOT()
-    collection.push([game.ball.pos.x, game.ball.pos.y, game.AI.returnOutput() * 255])
+    // game.rightBOT()
+    // collection.push([game.ball.pos.x, game.ball.pos.y, game.AI.returnOutput() * 255])
     userInput()
   }
   game.show()
@@ -22,7 +22,7 @@ function draw() {
 
   push()
   strokeWeight(50)
-  collection.forEach((x) => { stroke(x[2], 10); point(x[0], x[1]) })
+  // collection.forEach((x) => { stroke(x[2], 10); point(x[0], x[1]) })
   pop()
 }
 
